@@ -5,6 +5,8 @@
 #include <complex>
 #include <cmath>
 #include <string>
+#include <SFML/Graphics.hpp>
+
 using namespace sf;
 using namespace std;
 

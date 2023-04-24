@@ -1,4 +1,5 @@
 #include "ComplexPlane.hpp"
+
 using namespace sf;
 using namespace std;
 
@@ -26,7 +27,7 @@ int main()
 
   VertexArray points(Points, height * width);
 
-  enum State = {CALCULATING, DISPLAYING};
+  enum State{CALCULATING, DISPLAYING};
   State state = CALCULATING;
   
   while(window.isOpen())
@@ -37,13 +38,18 @@ int main()
       switch(event.type)
       {
         case Event::Closed:
+        {
           window.close();
           break;
+        }
         case Event::KeyPressed:
+        {
           if(event.key.code == Keyboard::Escape)
             window.close();
           break;
-        case Event::MouseButtonPresed:
+        }  
+        case Event::MouseButtonPressed:
+        {
           if(event.mouseButton.button == Mouse::Left)
           {
             mandelbrot.zoomIn();
@@ -52,14 +58,17 @@ int main()
           {
             mandelbrot.zoomOut();
           }
-          Vector2f coord = window.mapPixelToCoords(event.mouseButton.x, event.mouseButton.y, mandelbrot.getView);
+          Vector2f coord = window.mapPixelToCoords(Vector2i(event.mouseButton.x, event.mouseButton.y), mandelbrot.getView());
           mandelbrot.setCenter(coord);
           state = CALCULATING;
           break;
+        }
         case Event::MouseMoved;
+        {
           Vector2f coord = window.mapPixelToCoords(Vector2i(event.mouseMove.x, event.mouseMove.y), mandelbrot.getView());
           mandelbrot.setMouseLocation(coord);
           break;
+        }
       }
     }
 
@@ -70,14 +79,12 @@ int main()
       {
         for(int x = 0; x < VideoMode::getDesktopMode().width; x++)
         {
-          //note not actually sure what to use for pixelWidth
-          points[x + y * pixelWidth].position = {x.f, y.f};
+          points[x + y * width].position = {(float)x, (float)y};
           Vector2f coord = window.mapPixelToCoords(Vector2i(x, y), mandelbrot.getView());
           size_t iterations = mandelbrot.countIterations(coord);
           Uint8 r, g, b;
           mandelbrot.iterationsToRGB(iterations, r, g, b);
-          //note not actually sure what to use for pixelWidth
-          points[x + y * pixelWidth].color = {r, g, b};
+          points[x + y * width].color = {r, g, b};
           mandelbrot.loadText(text);
           
         }
@@ -87,14 +94,14 @@ int main()
 
     window.clear();
     window.draw(text);
-    for(int y = 0; y < VideoMode::getDesktopMode().height; y++)
-    {
-      for(int x = 0; x < VideoMode::getDesktopMode().width; x++)
-      {
-        //note not actually sure what to use for pixelWidth
-        window.draw(points[x + y * pixelWidth]);
-      }
-    }
+    //for(int y = 0; y < VideoMode::getDesktopMode().height; y++)
+    //{
+      //for(int x = 0; x < VideoMode::getDesktopMode().width; x++)
+      //{
+        //window.draw(points[x + y * width]);
+      //}
+    //}
+    window.draw(points);
     window.display();
   }
 }

@@ -1,4 +1,5 @@
 #include "ComplexPlane.hpp"
+
 using namespace sf;
 using namespace std;
 
@@ -14,18 +15,18 @@ void ComplexPlane::zoomIn()
   m_zoomCount++;
   size_t width = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
   size_t height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
-  m_view.setSize(width, height)
+  m_view.setSize(width, height);
 }
 void ComplexPlane::zoomOut()
 {
   m_zoomCount--;
   size_t width = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
   size_t height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
-  m_view.setSize(width, height)
+  m_view.setSize(width, height);
 }
 void ComplexPlane::setCenter(Vector2f coord)
 {
-  m_view.setCenter(coord.x / 2, coord.y / 2)
+  m_view.setCenter(coord.x / 2, coord.y / 2);
 }
 View ComplexPlane::getView()
 {
@@ -41,7 +42,7 @@ void ComplexPlane::loadText(Text& text)
       + ")\nCursor: (" + to_string(m_mouseLocation.x) + ", " + to_string(m_mouseLocation.y) + ")\nLeft-click to zoom in"
       + "\nRight-click to zoom out");
 }
-static size_t ComplexPlane::countIterations(Vector2f coord)
+size_t ComplexPlane::countIterations(Vector2f coord)
 {
   double r, i;
   r = coord.x;
@@ -50,14 +51,13 @@ static size_t ComplexPlane::countIterations(Vector2f coord)
   complex<double> z(0, 0);
   for(size_t i = 1; i < MAX_ITER; i++)
   {
-    //this might be wrong, i think z^2 should always be a real number but i'm not sure
-    complex<double> z_i(z * z, c);
-    z = z_i;
+    z = z * z + c;
     if(abs(z) >= 2.0)
       return i;
   }
+  return MAX_ITER;
 }
-static void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
+void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
   if(count < MAX_ITER / 5)
   {
