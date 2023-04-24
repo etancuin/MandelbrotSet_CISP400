@@ -1,5 +1,5 @@
 #include "ComplexPlane.hpp"
-
+// Ethan Quinn and Chris Reinholtz
 using namespace sf;
 using namespace std;
 
