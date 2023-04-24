@@ -13,15 +13,15 @@ ComplexPlane::ComplexPlane(float aspectRatio)
 void ComplexPlane::zoomIn()
 {
   m_zoomCount++;
-  size_t width = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
-  size_t height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
+  double width = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
+  double height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
   m_view.setSize(width, height);
 }
 void ComplexPlane::zoomOut()
 {
   m_zoomCount--;
-  size_t width = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
-  size_t height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
+  double width = BASE_WIDTH * pow(BASE_ZOOM, m_zoomCount);
+  double height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
   m_view.setSize(width, height);
 }
 void ComplexPlane::setCenter(Vector2f coord)
