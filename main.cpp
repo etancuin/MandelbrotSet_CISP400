@@ -3,6 +3,8 @@
 using namespace sf;
 using namespace std;
 
+// Ethan Q and Chris R
+
 int main() 
 {
   size_t height = VideoMode::getDesktopMode().height;
