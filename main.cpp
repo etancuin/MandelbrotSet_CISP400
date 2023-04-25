@@ -55,7 +55,6 @@ int main()
           {
             mandelbrot.zoomOut();
           }
-          
           state = CALCULATING;
           break;
         }
@@ -74,14 +73,12 @@ int main()
       {
         for(size_t i = 0; i < height; i++)
         {
-          
           points[j + i * width].position = {(float)j, (float)i};
           Vector2f coord = window.mapPixelToCoords(Vector2i(j, i), mandelbrot.getView());
           size_t iterations = mandelbrot.countIterations(coord);
           Uint8 r, g, b;
           mandelbrot.iterationsToRGB(iterations, r, g, b);
           points[j + i * width].color = {r, g, b};
-         
         }
       }
       state = DISPLAYING;
