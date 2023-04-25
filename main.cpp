@@ -84,7 +84,6 @@ int main()
          
         }
       }
-      Vector2f center = mandelbrot.getView().getCenter();
       state = DISPLAYING;
     }
     
