@@ -10,6 +10,7 @@ ComplexPlane::ComplexPlane(float aspectRatio)
   m_view.setCenter(0.0, 0.0);
   m_zoomCount = 0;
 }
+
 void ComplexPlane::zoomIn()
 {
   m_zoomCount++;
@@ -17,6 +18,7 @@ void ComplexPlane::zoomIn()
   double height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
   m_view.setSize(width, height);
 }
+
 void ComplexPlane::zoomOut()
 {
   m_zoomCount--;
@@ -24,24 +26,29 @@ void ComplexPlane::zoomOut()
   double height = BASE_HEIGHT * m_aspectRatio * pow(BASE_ZOOM, m_zoomCount);
   m_view.setSize(width, height);
 }
+
 void ComplexPlane::setCenter(Vector2f coord)
 {
-  m_view.setCenter(coord.x / 2, coord.y / 2);
+  m_view.setCenter(coord.x , coord.y);
 }
+
 View ComplexPlane::getView()
 {
   return m_view;
 }
+
 void ComplexPlane::setMouseLocation(Vector2f coord)
 {
   m_mouseLocation = coord;
 }
+
 void ComplexPlane::loadText(Text& text)
 {
   text.setString("Mandelbrot Set\nCenter: (" + to_string(m_view.getCenter().x) + ", " + to_string(m_view.getCenter().y)
       + ")\nCursor: (" + to_string(m_mouseLocation.x) + ", " + to_string(m_mouseLocation.y) + ")\nLeft-click to zoom in"
       + "\nRight-click to zoom out");
 }
+
 size_t ComplexPlane::countIterations(Vector2f coord)
 {
   double r, i;
@@ -57,6 +64,7 @@ size_t ComplexPlane::countIterations(Vector2f coord)
   }
   return MAX_ITER;
 }
+
 void ComplexPlane::iterationsToRGB(size_t count, Uint8& r, Uint8& g, Uint8& b)
 {
   if(count < MAX_ITER / 5)
