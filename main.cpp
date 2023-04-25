@@ -48,13 +48,9 @@ int main()
           Vector2f coord = window.mapPixelToCoords(Vector2i(event.mouseButton.x, event.mouseButton.y), mandelbrot.getView());
           mandelbrot.setCenter(coord);
           if(event.mouseButton.button == Mouse::Left)
-          {
             mandelbrot.zoomIn();
-          }
           else if(event.mouseButton.button == Mouse::Right)
-          {
             mandelbrot.zoomOut();
-          }
           state = CALCULATING;
           break;
         }
